@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
+  items: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
@@ -31,18 +31,15 @@ export default class ShoppingList extends Component {
   }
 
   render() {
+    const { shoppingList, pick, unpick } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Ostos
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        {shoppingList.map(entry =>
+          <Text>{entry.name}</Text>
+        )}
       </View>
     );
   }

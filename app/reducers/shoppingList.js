@@ -1,11 +1,11 @@
-
 import * as types from '../actions/actionTypes';
 
-const initialState = [
-  {name: 'Butter', added: false, picked: false},
-  {name: 'Eggs', added: false, picked: false},
-  {name: 'Milk', added: false, picked: false}
-];
+const initialState = {
+  shoppingList: [
+    {name: 'Butter', added: false, picked: false},
+    {name: 'Eggs', added: false, picked: false},
+    {name: 'Milk', added: false, picked: false}
+  ]};
 
 export default function shoppingList(state = initialState, action = {}, item) {
   switch (action.type) {

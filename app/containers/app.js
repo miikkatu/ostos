@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react-native';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
