@@ -12,9 +12,10 @@ export function remove() {
   };
 }
 
-export function pick() {
+export function pick(name) {
   return {
-    type: types.PICK
+    type: types.PICK,
+    name: name
   };
 }
 

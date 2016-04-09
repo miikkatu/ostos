@@ -7,32 +7,30 @@ const initialState = {
     {name: 'Milk', added: false, picked: false}
   ]};
 
-export default function shoppingList(state = initialState, action = {}, item) {
+export default function shoppingList(state = initialState, action = {}) {
   switch (action.type) {
 
     case types.ADD:
-      return {
-        // ...state,
-        // count: state.count + 1
-      };
+      return state;
 
     case types.REMOVE:
-      return {
-        // ...state,
-        // count: state.count - 1
-      };
+      return state;
 
     case types.PICK:
       return {
-        ...state
-        // count: state.count - 1
+        // Mark the item as picked, if it's in the list.
+        shoppingList: state.shoppingList.map((item, index) => {
+          if (state.shoppingList[index].name === action.name) {
+            return Object.assign({}, item, {
+              picked: true
+            });
+          }
+          return item;
+        })
       };
 
     case types.UNPICK:
-      return {
-        // ...state,
-        // count: state.count - 1
-      };
+      return state;
 
     default:
       return state;

@@ -25,18 +25,13 @@ const styles = StyleSheet.create({
   }
 });
 
-function filterList(obj) {
-  //if ('added' in obj === true && 'picked' in obj === false) {
-  if ('added' in obj === true) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 export default class ShoppingList extends Component {
   constructor(props) {
     super(props);
+  }
+
+  _handlePress(name) {
+    this.props.pick(name);
   }
 
   render() {
@@ -57,9 +52,22 @@ export default class ShoppingList extends Component {
           Ostos
         </Text>
 
-        <ListView dataSource={dataSource} renderRow={(rowData) => <TouchableOpacity key={rowData.name} onPress={pick} style={styles.item}>
-          <ShoppingItem style={styles.item} name={rowData.name} added={rowData.added} picked={rowData.picked}/>
-        </TouchableOpacity>}/>
+        <ListView
+          dataSource={dataSource}
+          renderRow={(rowData) =>
+
+            <TouchableOpacity
+              key={rowData.name}
+              onPress={this._handlePress.bind(this, rowData.name)}
+              style={styles.item}>
+
+                <ShoppingItem
+                  style={styles.item}
+                  name={rowData.name}
+                  added={rowData.added}
+                  picked={rowData.picked}/>
+
+            </TouchableOpacity>}/>
       </View>
     );
   }
