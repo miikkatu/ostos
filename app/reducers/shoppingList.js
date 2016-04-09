@@ -2,8 +2,8 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   shoppingList: [
-    {name: 'Butter', added: false, picked: false},
-    {name: 'Eggs', added: false, picked: false},
+    {name: 'Butter', added: true, picked: false},
+    {name: 'Eggs', added: true, picked: false},
     {name: 'Milk', added: false, picked: false}
   ]};
 
