@@ -9,14 +9,14 @@ import React, {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  item: {
+    borderWidth: 1,
+    fontSize: 15,
+    padding: 5
   },
   // item: {
   //   textAlign: 'center',
@@ -42,7 +42,7 @@ export default class ShoppingItem extends Component {
     }
     return (
       <View>
-        <Text>name: {name}, added: {isAdded}, picked: {isPicked}</Text>
+        <Text style={styles.item}>{name}</Text>
       </View>
     );
   }

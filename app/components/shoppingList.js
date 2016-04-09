@@ -11,17 +11,19 @@ import ShoppingItem from './shoppingItem';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#FFFFFF',
+    marginTop: 10
   },
-  welcome: {
+  title: {
+    backgroundColor: '#00a3ff',
+    color: '#ffffff',
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    marginTop: 10,
+    padding: 5
   },
   item: {
-    backgroundColor: '#f92020'
+    backgroundColor: '#FFFFFF'
   }
 });
 
@@ -39,6 +41,9 @@ export default class ShoppingList extends Component {
 
     // Show only such items that are added to the list but not yet picked.
     let filteredList = shoppingList.filter(item => (item.added === true && item.picked === false));
+    filteredList = filteredList.sort(function(a, b) {
+      return a.index - b.index;
+    });
 
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -48,9 +53,13 @@ export default class ShoppingList extends Component {
     return (
       <View style={styles.container}>
 
-        <Text style={styles.welcome}>
-          Ostos
-        </Text>
+        <View>
+          <View>
+            <Text style={styles.title}>
+              Ostos
+            </Text>
+          </View>
+        </View>
 
         <ListView
           dataSource={dataSource}

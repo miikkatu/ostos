@@ -2,9 +2,9 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   shoppingList: [
-    {name: 'Butter', added: true, picked: false},
-    {name: 'Eggs', added: true, picked: false},
-    {name: 'Milk', added: false, picked: false}
+    {index: 2, name: 'Butter', added: true, picked: false},
+    {index: 1, name: 'Eggs', added: true, picked: false},
+    {index: 1, name: 'Milk', added: true, picked: false}
   ]};
 
 export default function shoppingList(state = initialState, action = {}) {
