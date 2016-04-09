@@ -5,7 +5,6 @@ import React, {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ShoppingItem from './shoppingItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,23 +25,24 @@ const styles = StyleSheet.create({
   // },
 });
 
-export default class ShoppingList extends Component {
+export default class ShoppingItem extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { shoppingList, pick, unpick } = this.props;
+    const {name, added, picked} = this.props;
+    let isAdded = 'false';
+    let isPicked = 'false';
+    if (picked === true) {
+      isPicked = 'true';
+    }
+    if (added === true) {
+      isAdded = 'true';
+    }
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Ostos
-        </Text>
-        {shoppingList.map(entry =>
-          <TouchableOpacity key = {entry.name} onPress={pick} style={styles.item}>
-            <ShoppingItem name = {entry.name} added = {entry.added} picked = {entry.picked} />
-          </TouchableOpacity>
-        )}
+      <View>
+        <Text>name: {name}, added: {isAdded}, picked: {isPicked}</Text>
       </View>
     );
   }

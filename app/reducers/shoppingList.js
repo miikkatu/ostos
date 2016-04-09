@@ -24,7 +24,7 @@ export default function shoppingList(state = initialState, action = {}, item) {
 
     case types.PICK:
       return {
-        // ...state,
+        ...state
         // count: state.count - 1
       };
 

@@ -12,14 +12,8 @@ export function remove() {
   };
 }
 
-export function pick() {
+export function togglePick() {
   return {
-    type: types.PICK
-  };
-}
-
-export function unpick() {
-  return {
-    type: types.UNPICK
+    type: types.TOGGLEPICK
   };
 }
