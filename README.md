@@ -1,6 +1,6 @@
 # ostos
 
-A React Native iOS shopping list app.
+A React Native shopping list app for iPhone.
 
 ## setup
 
