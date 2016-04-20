@@ -3,12 +3,14 @@ import React, {
   ListView,
   StyleSheet,
   Text,
+  TouchableHighlight,
   TouchableOpacity,
   View
 } from 'react-native';
 import ShoppingItem from './shoppingItem';
 
 const styles = StyleSheet.create({
+  button: {},
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
@@ -32,7 +34,11 @@ export default class ShoppingList extends Component {
     super(props);
   }
 
-  _handlePress(name) {
+  _handleAddPress(name) {
+    this.props.add(name);
+  }
+
+  _handleItemPress(name) {
     this.props.pick(name);
   }
 
@@ -61,22 +67,25 @@ export default class ShoppingList extends Component {
           </View>
         </View>
 
+        <TouchableHighlight
+          onPress={this._handleAddPress.bind(this, 'Bacon')}>
+          <Text>Add</Text>
+        </TouchableHighlight>
+
         <ListView
           dataSource={dataSource}
+          enableEmptySections={true}
           renderRow={(rowData) =>
-
             <TouchableOpacity
               key={rowData.name}
-              onPress={this._handlePress.bind(this, rowData.name)}
+              onPress={this._handleItemPress.bind(this, rowData.name)}
               style={styles.item}>
-
-                <ShoppingItem
-                  style={styles.item}
-                  name={rowData.name}
-                  added={rowData.added}
-                  picked={rowData.picked}/>
-
-            </TouchableOpacity>}/>
+          <ShoppingItem
+            style={styles.item}
+            name={rowData.name}
+            added={rowData.added}
+            picked={rowData.picked}/>
+        </TouchableOpacity>}/>
       </View>
     );
   }

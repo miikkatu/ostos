@@ -1,26 +1,32 @@
-import * as types from './actionTypes';
+export const ADD = 'ADD';
+export const REMOVE = 'REMOVE';
+export const PICK = 'PICK';
+export const UNPICK = 'UNPICK';
 
-export function add() {
+export function add(data) {
   return {
-    type: types.ADD
+    type: ADD,
+    data: data
   };
 }
 
-export function remove() {
+export function remove(name) {
   return {
-    type: types.REMOVE
+    type: REMOVE,
+    name: name
   };
 }
 
 export function pick(name) {
   return {
-    type: types.PICK,
+    type: PICK,
     name: name
   };
 }
 
-export function unPick() {
+export function unPick(name) {
   return {
-    type: types.UNPICK
+    type: UNPICK,
+    name: name
   };
 }

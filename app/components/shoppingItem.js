@@ -14,8 +14,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   item: {
-    borderWidth: 1,
+    borderColor: '#bebebe',
+    borderWidth: 0.5,
     fontSize: 15,
+    margin: 1,
     padding: 5
   }
 });

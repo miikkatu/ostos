@@ -1,8 +1,8 @@
-import React, { Component } from 'react-native';
+import React, {Component} from 'react-native';
 import {bindActionCreators} from 'redux';
 import ShoppingList from '../components/shoppingList';
 import * as shoppingListActions from '../actions/shoppingListActions';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 class ShoppingListApp extends Component {
   constructor(props) {
@@ -11,18 +11,10 @@ class ShoppingListApp extends Component {
 
   render() {
     const {state, actions} = this.props;
-    return (
-      <ShoppingList
-        shoppingList={state.shoppingList}
-        {...actions} />
-    );
+    return (<ShoppingList shoppingList={state.shoppingList} {...actions}/>);
   }
 }
 
-export default connect(state => ({
-    state: state.shoppingList
-  }),
-  (dispatch) => ({
-    actions: bindActionCreators(shoppingListActions, dispatch)
-  })
-)(ShoppingListApp);
+export default connect(state => ({state: state.shoppingList}), (dispatch) => ({
+  actions: bindActionCreators(shoppingListActions, dispatch)
+}))(ShoppingListApp);
