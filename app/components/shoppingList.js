@@ -3,6 +3,7 @@ import React, {
   ListView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableHighlight,
   TouchableOpacity,
   View
@@ -11,21 +12,24 @@ import ShoppingItem from './shoppingItem';
 
 const styles = StyleSheet.create({
   button: {},
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    marginTop: 10
-  },
-  title: {
-    backgroundColor: '#00a3ff',
-    color: '#ffffff',
-    fontSize: 20,
-    textAlign: 'center',
-    marginTop: 10,
-    padding: 5
-  },
   item: {
     backgroundColor: '#FFFFFF'
+  },
+  toolbar: {
+    backgroundColor:'#00a3ff',
+    paddingTop: 30,
+    paddingBottom: 10,
+    flexDirection:'row'
+  },
+  toolbarButton:{
+    width: 50,
+    color: '#ffffff',
+    textAlign: 'center'
+  },
+  toolbarTitle: {
+    color: '#ffffff',
+    textAlign: 'center',
+    flex: 1
   }
 });
 
@@ -36,6 +40,10 @@ export default class ShoppingList extends Component {
 
   _handleAddPress(name) {
     this.props.add(name);
+  }
+
+  _handleEditPress() {
+
   }
 
   _handleItemPress(name) {
@@ -60,33 +68,58 @@ export default class ShoppingList extends Component {
       <View style={styles.container}>
 
         <View>
-          <View>
-            <Text style={styles.title}>
-              Ostos
-            </Text>
-          </View>
-        </View>
+           <View style={styles.toolbar}>
 
-        <TouchableHighlight
-          onPress={this._handleAddPress.bind(this, 'Bacon')}>
-          <Text>Add</Text>
-        </TouchableHighlight>
+             <TouchableHighlight
+               onPress={this._handleAddPress.bind(this, 'Bacon')}>
+               <Text style={styles.toolbarButton}>Add</Text>
+             </TouchableHighlight>
+
+             <Text style={styles.toolbarTitle}>Ostos</Text>
+
+             <TouchableHighlight
+               onPress={this._handleEditPress.bind(this)}>
+               <Text style={styles.toolbarButton}>Edit</Text>
+             </TouchableHighlight>
+
+           </View>
+        </View>
 
         <ListView
           dataSource={dataSource}
           enableEmptySections={true}
           renderRow={(rowData) =>
+
             <TouchableOpacity
               key={rowData.name}
               onPress={this._handleItemPress.bind(this, rowData.name)}
-              style={styles.item}>
-          <ShoppingItem
-            style={styles.item}
-            name={rowData.name}
-            added={rowData.added}
-            picked={rowData.picked}/>
-        </TouchableOpacity>}/>
+              style={styles.item} >
+
+              <ShoppingItem
+                style={styles.item}
+                name={rowData.name}
+                added={rowData.added}
+                picked={rowData.picked} />
+
+            </TouchableOpacity>
+
+          } />
+
       </View>
     );
   }
 }
+
+
+// <View  style={styles.titleBar}>
+//
+//   <TextInput
+//       style={{height: 40, width: 100, borderColor: 'gray', borderWidth: 1}}
+//       onChangeText={(text) => this.setState({text})}
+//       value={text} />
+//
+//   <TouchableHighlight
+//     onPress={this._handleAddPress.bind(this, 'Bacon')}>
+//     <Text>Add</Text>
+//   </TouchableHighlight>
+// </View>
