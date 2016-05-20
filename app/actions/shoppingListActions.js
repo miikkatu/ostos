@@ -3,10 +3,10 @@ export const REMOVE = 'REMOVE';
 export const PICK = 'PICK';
 export const UNPICK = 'UNPICK';
 
-export function add(data) {
+export function add(name) {
   return {
     type: ADD,
-    data: data
+    name: name
   };
 }
 

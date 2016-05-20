@@ -29,33 +29,55 @@ const initialState = {
   ]
 };
 
-export default function shoppingList(state = initialState, action = {}) {
+export default function shoppingList(state = initialState, action) {
 	switch (action.type) {
 
 		case ADD:
-      // TODO
-      shoppingList: state.shoppingList.push({
-        index: 4,
-        name: action.name,
-        added: true,
-        picked: false
-      });
-			return state;
+
+			return  {
+				shoppingList: [
+					{
+						index: 2,
+						name: 'Butter',
+						added: true,
+						picked: false
+					},
+					{
+						index: 1,
+						name: 'Eggs',
+						added: true,
+						picked: false
+					},
+					{
+						index: 1,
+						name: 'Milk',
+						added: true,
+						picked: false
+					},
+					{
+						index: 4,
+						name: 'Bacon',
+						added: true,
+						picked: false
+					}
+				]
+					};
+
 
 		case REMOVE:
 			return state;
 
 		case PICK:
 			return {
-				// Mark the item as picked, if it's in the list.
-				shoppingList: state.shoppingList.map((item, index) => {
-					if (state.shoppingList[index].name === action.name) {
-						return Object.assign({}, item, {
-							picked: true
-						});
-					}
-					return item;
-				})
+						// Mark the item as picked, if it's in the list.
+						shoppingList: state.shoppingList.map((item, index) => {
+							if (state.shoppingList[index].name === action.name) {
+								return Object.assign({}, item, {
+									picked: true
+								});
+							}
+							return item;
+						})
 			};
 
 		case UNPICK:
@@ -63,5 +85,5 @@ export default function shoppingList(state = initialState, action = {}) {
 
 		default:
 			return state;
+			}
 	}
-}
