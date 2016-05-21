@@ -7,11 +7,17 @@ import * as reducers from '../reducers';
 import ShoppingListApp from './shoppingListApp';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const reducer = combineReducers(reducers);
-const store = createStoreWithMiddleware(reducer);
+const store = createStoreWithMiddleware(combineReducers(reducers));
 
 export default class App extends Component {
   render() {
+
+    // Works
+    store.dispatch({
+      type: 'ADD',
+      name: 'juttu'
+    });
+
     return (
       <Provider store={store}>
         <ShoppingListApp />

@@ -41,9 +41,15 @@ export default class RootComponent extends Component {
       return <ShoppingList
         navigator={navigator}
         shoppingList={route.shoppingList}
+        add={route.add}
+        pick={route.pick}
+        unPick={route.pick} />;
+    }
+    else if (route.id === 2) {
+      return <MasterList
+        navigator={navigator}
+        shoppingList={route.shoppingList}
         add={route.add} />;
-    } else if (route.id === 2) {
-      return <MasterList navigator={navigator} shoppingList={route.shoppingList} add={route.add}  />;
     }
   }
 
@@ -52,14 +58,15 @@ export default class RootComponent extends Component {
       <Navigator
         initialRoute={{id: 1,
           shoppingList: this.props.shoppingList,
-          add: this.props.add}}
-        renderScene={this._renderScene}
-        configureScene={this._configureScene} />
+          add: this.props.add,
+          pick: this.props.pick,
+          unPick: this.props.unPick}}
+        renderScene={this._renderScene} />
     );
   }
 }
 
-var MasterList = React.createClass({
+let MasterList = React.createClass({
   _handleAddPress(name) {
     this.props.add(name);
   },
@@ -69,7 +76,7 @@ var MasterList = React.createClass({
   },
 
   render() {
-    const {shoppingList, add} = this.props;
+    const {shoppingList, add, pick} = this.props;
 
     return (
 
@@ -94,32 +101,40 @@ var MasterList = React.createClass({
   }
 });
 
-var ShoppingList = React.createClass({
+let ShoppingList = React.createClass({
 
   _handleAddPress(name) {
-    this.props.navigator.push({id: 2, add: this.props.add, shoppingList: this.props.shoppingList});
+    // Open add view.
+    this.props.navigator.push(
+      {
+        id: 2,
+        add: this.props.add,
+        shoppingList: this.props.shoppingList
+      }
+    );
   },
 
   _handleEditPress() {
   },
 
   _handleItemPress(name) {
+    // Pick an item.
     this.props.pick(name);
   },
 
   render() {
     const {shoppingList, add, pick, unPick} = this.props;
 
-    // Show only such items that are added to the list but not yet picked.
-    let filteredList = shoppingList.filter(item => (item.added === true && item.picked === false));
-    filteredList = filteredList.sort(function(a, b) {
-      return a.index - b.index;
-    });
+    // // Show only such items that are added to the list but not yet picked.
+    // let filteredList = shoppingList.filter(item => (item.added === true && item.picked === false));
+    // filteredList = filteredList.sort(function(a, b) {
+    //   return a.index - b.index;
+    // });
 
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    dataSource = ds.cloneWithRows(filteredList);
+    dataSource = ds.cloneWithRows(shoppingList);
 
     return (
       <View>
@@ -149,7 +164,7 @@ var ShoppingList = React.createClass({
 
             <TouchableOpacity
               key={rowData.name}
-              onPress={this._handleItemPress.bind(null, this, rowData.name)}
+              onPress={this._handleItemPress.bind(null, rowData.name)}
               style={styles.item} >
 
               <ShoppingItem

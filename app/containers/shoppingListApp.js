@@ -7,14 +7,37 @@ import {connect} from 'react-redux';
 class ShoppingListApp extends Component {
   constructor(props) {
     super(props);
+debugger;
+    // Doesn't work
+    this.props.dispatch({
+      type: 'ADD',
+      name: 'homma'
+    });
+  }
+
+  componentDidMount() {
+    // Injected by react-redux:
+    let { dispatch } = this.props;
+
+    // Note: this won’t work:
+    // TodoActionCreators.addTodo('Use Redux')
+
+    // You’re just calling a function that creates an action.
+    // You must dispatch the action, too!
+
+    // This will work:
+    //let action = TodoActionCreators.addTodo('Use Redux');
+
+    dispatch(shoppingListActions);
   }
 
   render() {
-    const {state, actions} = this.props;
-    return (<RootComponent shoppingList={state.shoppingList} {...actions}/>);
+    let {shoppingList, dispatch} = this.props;
+    let boundActionCreators = bindActionCreators(shoppingListActions, dispatch);
+    return (<RootComponent shoppingList={shoppingList} {...boundActionCreators}/>);
   }
 }
 
-export default connect(state => ({state: state.shoppingList}), (dispatch) => ({
-  actions: bindActionCreators(shoppingListActions, dispatch)
-}))(ShoppingListApp);
+export default connect(
+  state => ({ shoppingList: state.shoppingList })
+)(ShoppingListApp);
