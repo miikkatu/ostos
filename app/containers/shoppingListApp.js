@@ -1,6 +1,6 @@
 import React, {Component} from 'react-native';
 import {bindActionCreators} from 'redux';
-import ShoppingList from '../components/shoppingList';
+import RootComponent from '../components/shoppingList';
 import * as shoppingListActions from '../actions/shoppingListActions';
 import {connect} from 'react-redux';
 
@@ -11,7 +11,7 @@ class ShoppingListApp extends Component {
 
   render() {
     const {state, actions} = this.props;
-    return (<ShoppingList shoppingList={state.shoppingList} {...actions}/>);
+    return (<RootComponent shoppingList={state.shoppingList} {...actions}/>);
   }
 }
 

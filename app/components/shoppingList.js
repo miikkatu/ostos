@@ -1,6 +1,7 @@
 import React, {
   Component,
   ListView,
+  Navigator,
   StyleSheet,
   Text,
   TextInput,
@@ -11,10 +12,6 @@ import React, {
 import ShoppingItem from './shoppingItem';
 
 const styles = StyleSheet.create({
-  button: {},
-  item: {
-    backgroundColor: '#FFFFFF'
-  },
   toolbar: {
     backgroundColor:'#00a3ff',
     paddingTop: 30,
@@ -33,25 +30,85 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class ShoppingList extends Component {
+export default class RootComponent extends Component {
   constructor(props) {
     super(props);
+    const {shoppingList, add, pick, unPick} = this.props;
   }
 
-  _handleAddPress(name) {
-    this.props.add(name);
-  }
-
-  _handleEditPress() {
-
-  }
-
-  _handleItemPress(name) {
-    this.props.pick(name);
+  _renderScene(route, navigator) {
+    if (route.id === 1) {
+      return <ShoppingList
+        navigator={navigator}
+        shoppingList={route.shoppingList}
+        add={route.add} />;
+    } else if (route.id === 2) {
+      return <MasterList navigator={navigator} shoppingList={route.shoppingList} add={route.add}  />;
+    }
   }
 
   render() {
-    const {shoppingList, pick, unPick} = this.props;
+    return (
+      <Navigator
+        initialRoute={{id: 1,
+          shoppingList: this.props.shoppingList,
+          add: this.props.add}}
+        renderScene={this._renderScene}
+        configureScene={this._configureScene} />
+    );
+  }
+}
+
+var MasterList = React.createClass({
+  _handleAddPress(name) {
+    this.props.add(name);
+  },
+
+  _handleBackPress() {
+    this.props.navigator.pop();
+  },
+
+  render() {
+    const {shoppingList, add} = this.props;
+
+    return (
+
+      <View>
+         <View style={styles.toolbar}>
+
+           <TouchableHighlight
+             onPress={this._handleBackPress.bind(null, this)}>
+             <Text style={styles.toolbarButton}>Back</Text>
+           </TouchableHighlight>
+
+           <Text style={styles.toolbarTitle}>Ostos</Text>
+
+           <TouchableHighlight
+             onPress={this._handleAddPress.bind(null, 'Bacon')}>
+             <Text style={styles.toolbarButton}>Add</Text>
+           </TouchableHighlight>
+
+         </View>
+      </View>
+    );
+  }
+});
+
+var ShoppingList = React.createClass({
+
+  _handleAddPress(name) {
+    this.props.navigator.push({id: 2, add: this.props.add, shoppingList: this.props.shoppingList});
+  },
+
+  _handleEditPress() {
+  },
+
+  _handleItemPress(name) {
+    this.props.pick(name);
+  },
+
+  render() {
+    const {shoppingList, add, pick, unPick} = this.props;
 
     // Show only such items that are added to the list but not yet picked.
     let filteredList = shoppingList.filter(item => (item.added === true && item.picked === false));
@@ -65,20 +122,20 @@ export default class ShoppingList extends Component {
     dataSource = ds.cloneWithRows(filteredList);
 
     return (
-      <View style={styles.container}>
+      <View>
 
         <View>
            <View style={styles.toolbar}>
 
              <TouchableHighlight
-               onPress={this._handleAddPress.bind(this, 'Bacon')}>
+               onPress={this._handleAddPress.bind(null, this, 'Bacon')}>
                <Text style={styles.toolbarButton}>Add</Text>
              </TouchableHighlight>
 
              <Text style={styles.toolbarTitle}>Ostos</Text>
 
              <TouchableHighlight
-               onPress={this._handleEditPress.bind(this)}>
+               onPress={this._handleEditPress.bind(null, this)}>
                <Text style={styles.toolbarButton}>Edit</Text>
              </TouchableHighlight>
 
@@ -92,7 +149,7 @@ export default class ShoppingList extends Component {
 
             <TouchableOpacity
               key={rowData.name}
-              onPress={this._handleItemPress.bind(this, rowData.name)}
+              onPress={this._handleItemPress.bind(null, this, rowData.name)}
               style={styles.item} >
 
               <ShoppingItem
@@ -108,18 +165,4 @@ export default class ShoppingList extends Component {
       </View>
     );
   }
-}
-
-
-// <View  style={styles.titleBar}>
-//
-//   <TextInput
-//       style={{height: 40, width: 100, borderColor: 'gray', borderWidth: 1}}
-//       onChangeText={(text) => this.setState({text})}
-//       value={text} />
-//
-//   <TouchableHighlight
-//     onPress={this._handleAddPress.bind(this, 'Bacon')}>
-//     <Text>Add</Text>
-//   </TouchableHighlight>
-// </View>
+});

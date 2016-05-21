@@ -23,7 +23,7 @@ const initialState = {
 		{
 			index: 1,
 			name: 'Milk',
-			added: true,
+			added: false,
 			picked: false
 		}
   ]
@@ -35,6 +35,7 @@ export default function shoppingList(state = initialState, action) {
 
 		case ADD:
 			return {
+				// Return a new object with the previous state with the added item.
 				shoppingList: [
 					...state.shoppingList,
 					{

@@ -1,5 +1,6 @@
 import React, {
   Component,
+  Input,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -18,7 +19,11 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     fontSize: 15,
     margin: 1,
-    padding: 5
+    padding: 5,
+    flex: 1
+  },
+  itemContainer: {
+    flexDirection: 'row'
   }
 });
 
@@ -30,7 +35,7 @@ export default class ShoppingItem extends Component {
   render() {
     const {name, added, picked} = this.props;
     return (
-      <View>
+      <View style={styles.itemContainer}>
         <Text style={styles.item}>{name}</Text>
       </View>
     );
