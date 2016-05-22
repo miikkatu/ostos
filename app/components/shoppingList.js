@@ -125,11 +125,12 @@ let ShoppingList = React.createClass({
   render() {
     const {shoppingList, add, pick, unPick} = this.props;
 
-    // // Show only such items that are added to the list but not yet picked.
-    // let filteredList = shoppingList.filter(item => (item.added === true && item.picked === false));
-    // filteredList = filteredList.sort(function(a, b) {
-    //   return a.index - b.index;
-    // });
+    // Show only such items that are added to the list but not yet picked.
+    let filteredList = shoppingList.filter(item => (item.added === true && item.picked === false));
+    // Sort by index.
+    filteredList = filteredList.sort(function(a, b) {
+      return a.index - b.index;
+    });
 
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2

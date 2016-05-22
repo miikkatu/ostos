@@ -9,8 +9,7 @@
     "react": "^0.14.5",
     "react-native": "^0.24.1",
     "react-redux": "^4.4.2",
-    "redux": "^3.4.0",
-    "redux-thunk": "^2.0.1"
+    "redux": "^3.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",

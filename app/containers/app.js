@@ -1,22 +1,45 @@
 import React, { Component } from 'react-native';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 
-import * as reducers from '../reducers';
+import shoppingListReducers from '../reducers/reducers';
 import ShoppingListApp from './shoppingListApp';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(combineReducers(reducers));
+import {add, pick} from '../actions/actions';
+
+const initialState = {
+	shoppingList: [
+		{
+			index: 2,
+			name: 'Butter',
+			added: true,
+			picked: false
+		},
+		{
+			index: 1,
+			name: 'Eggs',
+			added: true,
+			picked: false
+		},
+		{
+			index: 1,
+			name: 'Milk',
+			added: false,
+			picked: false
+		}
+  ]
+};
+
+let store = createStore(shoppingListReducers, initialState);
 
 export default class App extends Component {
   render() {
 
-    // Works
-    store.dispatch({
-      type: 'ADD',
-      name: 'juttu'
-    });
+    console.log(store.getState());
+    console.log(store.dispatch(add('Bacon')));
+    console.log(store.getState());
+    console.log(store.dispatch(pick('Bacon')));
+    console.log(store.getState());
 
     return (
       <Provider store={store}>
