@@ -11,6 +11,7 @@ function shoppingList(state = [], action) {
 	switch (action.type) {
 
 		case ADD:
+			console.log('case ADD:');
 			return [
 				...state,
 				{
@@ -25,16 +26,22 @@ function shoppingList(state = [], action) {
 			return state;
 
 		case PICK:
-			return state.map((item, index) => {
+			console.log('case PICK:');
+
+			let homma = state.map((item, index) => {
         if (state[index].name === action.name) {
-          return Object.assign({}, item, {
+					return Object.assign({}, item, {
             picked: true
           });
         }
         return item;
       });
+			console.log(homma);
+			return homma;
+
 
 		case UNPICK:
+			console.log('case UNPICK:');
 			return state.map((item, index) => {
 				if (state[index].name === action.name) {
 					return Object.assign({}, item, {
@@ -45,6 +52,7 @@ function shoppingList(state = [], action) {
 			});
 
 		default:
+			console.log('DEFAULT:');
 			return state;
 	}
 }

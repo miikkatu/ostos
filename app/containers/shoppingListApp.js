@@ -13,7 +13,7 @@ class ShoppingListApp extends Component {
 
   render() {
     let {shoppingList, dispatch} = this.props;
-    let boundActionCreators = bindActionCreators(shoppingListActions);
+    let boundActionCreators = bindActionCreators(shoppingListActions, dispatch);
     return (<RootComponent shoppingList={shoppingList} {...boundActionCreators}/>);
   }
 }

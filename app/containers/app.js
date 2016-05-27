@@ -35,11 +35,11 @@ let store = createStore(shoppingListReducers, initialState);
 export default class App extends Component {
   render() {
 
-    console.log(store.getState());
-    console.log(store.dispatch(add('Bacon')));
-    console.log(store.getState());
-    console.log(store.dispatch(pick('Bacon')));
-    console.log(store.getState());
+    // console.log(store.getState());
+    // console.log(store.dispatch(add('Bacon')));
+    // console.log(store.getState());
+    // console.log(store.dispatch(pick('Bacon')));
+    // console.log(store.getState());
 
     return (
       <Provider store={store}>
